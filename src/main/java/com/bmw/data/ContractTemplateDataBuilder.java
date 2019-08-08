@@ -12,8 +12,8 @@ public class ContractTemplateDataBuilder {
 	}
 
 	public static List<ContractTemplate> buildcontractTemplateList() {
-		List<ContractTemplate> contractList = new ArrayList<>();
+		List<ContractTemplate> contractTemplateList = new ArrayList<>();
 
-		return contractList;
+		return contractTemplateList;
 	}
 }

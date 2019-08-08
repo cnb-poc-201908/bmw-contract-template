@@ -1,6 +1,7 @@
 package com.bmw.config;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -64,10 +65,13 @@ public class RestConfig implements WebMvcConfigurer {
 
 	@Bean
 	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-	public List<ContractTemplate> contractList() throws IOException {
+	public List<ContractTemplate> contractTemplateList() throws IOException {
 		ValueOperations<String, String> ops = redisTemplate.opsForValue();
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		if(ops.get(BMWPocConstants.REDIS_CONTRACT_TEMPLATE_LIST_KEY) == null) {
+			return new ArrayList<>();
+		}
 		return objectMapper.readValue(ops.get(BMWPocConstants.REDIS_CONTRACT_TEMPLATE_LIST_KEY),
 				new TypeReference<List<ContractTemplate>>() {
 		});

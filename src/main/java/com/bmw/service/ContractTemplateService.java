@@ -10,11 +10,11 @@ import com.bmw.model.ContractTemplate;
 @Service
 public class ContractTemplateService {
 	@Autowired
-	private List<ContractTemplate> contractList;
+	private List<ContractTemplate> contractTemplateList;
 
-	public List<ContractTemplate> getPreContractList(String dealerId, String regionId, String groupId, String contractStatus) {
+	public List<ContractTemplate> getContractTemplateList(String dealerId, String regionId, String groupId, String contractStatus) {
 
-		return contractList;
+		return contractTemplateList;
 	}
 
 }

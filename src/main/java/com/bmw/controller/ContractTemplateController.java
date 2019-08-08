@@ -18,7 +18,7 @@ import com.bmw.service.ContractTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@RestController("Contract endpoints")
+@RestController("Contract template endpoints")
 @RequestMapping("/contracts")
 @Api(description = "合同模板管理接口")
 public class ContractTemplateController {
