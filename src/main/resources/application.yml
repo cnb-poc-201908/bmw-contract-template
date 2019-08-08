@@ -61,6 +61,7 @@ eureka:
       defaultZone: http://localhost:10001/eureka
   instance:
     prefer-ip-address: true
+    ipAddress: 127.0.0.1
 #    securePortEnabled: true
     instance-id: ${spring.application.name}:${server.port}
   environment: dev
