@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController("Contract endpoints")
 @RequestMapping("/contracts")
-@Api(description = "合同管理接口")
+@Api(description = "合同模板管理接口")
 public class ContractTemplateController {
 
 	private static Logger logger = LoggerFactory.getLogger(ContractTemplateController.class);
@@ -29,7 +29,7 @@ public class ContractTemplateController {
 	private ContractTemplateService contractTemplateService;
 
 	@GetMapping(value = "", produces = "application/json")
-	@ApiOperation(value = "合同列表信息查询")
+	@ApiOperation(value = "合同模板列表信息查询")
 	public RestResponse<List<ContractTemplate>> getPreContract(
 			@RequestParam(value = "dealerId", required = false) String dealerId,
 			@RequestParam(value = "regionId", required = false) String regionId,
