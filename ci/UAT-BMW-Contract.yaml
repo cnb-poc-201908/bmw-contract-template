@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: uat-bmw-contract
+  namespace: uat
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: uat-bmw-contract
+    spec:
+      containers:
+        - name: uat-bmw-contract
+          image: registry.cn-beijing.aliyuncs.com/bmwpoc/uat-bmw-contract:{version}
+          ports:
+            - name: http-port
+              containerPort: 20004
+          env:
+            - name: spring_profiles_active
+              value: k8s
+      imagePullSecrets:
+        - name: bmwpoc

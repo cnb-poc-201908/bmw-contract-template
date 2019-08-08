@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pro-bmw-contract
+  namespace: pro
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pro-bmw-contract
+    spec:
+      containers:
+        - name: pro-bmw-contract
+          image: registry.cn-beijing.aliyuncs.com/bmwpoc/pro-bmw-contract:{version}
+          ports:
+            - name: http-port
+              containerPort: 20004
+          env:
+            - name: spring_profiles_active
+              value: k8s
+      imagePullSecrets:
+        - name: bmwpoc
