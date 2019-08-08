@@ -14,7 +14,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -39,8 +38,6 @@ public class RestConfig implements WebMvcConfigurer {
 		converters.add(converter);
 	}
 
-	@Autowired
-	RestTemplate restTemplate;
 	@Autowired
 	RedisTemplate<String, String> redisTemplate;
 
