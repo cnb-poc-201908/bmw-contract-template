@@ -1,7 +1,7 @@
 #!groovy
 node {   
 // '##################Creditial SETUP########################'
-def GIT_URL = 'git@github.com:bmw-poc/bmw-contract.git'
+def GIT_URL = 'git@github.com:bmw-poc/bmw-contract-template.git'
 def GIT_CRED = 'gitcom-user-bchen'
 
 def SONAR_CRED = 'sonar-token'

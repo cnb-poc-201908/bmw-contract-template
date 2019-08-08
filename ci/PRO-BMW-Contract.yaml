@@ -1,21 +1,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pro-bmw-contract
+  name: pro-bmw-contract-template
   namespace: pro
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: pro-bmw-contract
+        app: pro-bmw-contract-template
     spec:
       containers:
-        - name: pro-bmw-contract
-          image: registry.cn-beijing.aliyuncs.com/bmwpoc/pro-bmw-contract:{version}
+        - name: pro-bmw-contract-template
+          image: registry.cn-beijing.aliyuncs.com/bmwpoc/pro-bmw-contract-template:{version}
           ports:
             - name: http-port
-              containerPort: 20004
+              containerPort: 20006
           env:
             - name: spring_profiles_active
               value: k8s
