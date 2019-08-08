@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +19,6 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.bmw.common.BMWPocConstants;
-import com.bmw.controller.RedisAddDataController;
 import com.bmw.model.ContractTemplate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -30,7 +27,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class RestConfig implements WebMvcConfigurer {
 
-	private static Logger logger = LoggerFactory.getLogger(RedisAddDataController.class);
 
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -39,8 +35,7 @@ public class RestConfig implements WebMvcConfigurer {
 		converters.add(converter);
 	}
 
-	@Autowired
-	RedisTemplate<String, String> redisTemplate;
+
 
 	@Bean
 	public CorsFilter corsFilter() {
@@ -65,15 +60,15 @@ public class RestConfig implements WebMvcConfigurer {
 
 	@Bean
 	@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-	public List<ContractTemplate> contractTemplateList() throws IOException {
+	public List<ContractTemplate> contractTemplateList(RedisTemplate<String, String> redisTemplate) throws IOException {
 		ValueOperations<String, String> ops = redisTemplate.opsForValue();
 		ObjectMapper objectMapper = new ObjectMapper();
+		List<ContractTemplate> list = new ArrayList<>();
 		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-		if(ops.get(BMWPocConstants.REDIS_CONTRACT_TEMPLATE_LIST_KEY) == null) {
-			return new ArrayList<>();
+		String json = ops.get(BMWPocConstants.REDIS_CONTRACT_TEMPLATE_LIST_KEY);
+		if(StringUtils.isNotBlank(json)) {
+			list = objectMapper.readValue(json, new TypeReference<List<ContractTemplate>>() {});
 		}
-		return objectMapper.readValue(ops.get(BMWPocConstants.REDIS_CONTRACT_TEMPLATE_LIST_KEY),
-				new TypeReference<List<ContractTemplate>>() {
-		});
+		return list;
 	}
 }
